@@ -7,7 +7,7 @@
                     <img class="list__hot-film--item__bg--img" :src="pathImage + film[index]?.poster_url" alt="">
                 </div>
                 <div class="list__hot-film--item__info">
-                    <div class="list__hot-film--item__info--play-btn" @click="$router.push(`film/${film[index]?.slug}`)">
+                    <div class="list__hot-film--item__info--play-btn" @click="$router.push(`/film/${film[index]?.slug}`)">
                         <img class="list__hot-film--item__info--play" src="../assets/icon/play1.png" alt="">
                     </div>
                     <div class="list__film-hot-text">
@@ -30,7 +30,7 @@ export default {
     data() {
         return {
             dataFilm: this.film,
-            filmHot:[9,10,11,12,13,14],
+            filmHot:[10,11,12,13,14],
             pathImage:'https://img.hiephanhthienha.com/uploads/movies/'
         }
     },

@@ -17,7 +17,7 @@
         </div>
 
         <div class="film__lasted">
-          <div class="film__lasted-item-1 blur__lasted-film">
+          <div class="film__lasted-item-1 blur__lasted-film" :title="film[0]?.name">
 
             <div class="lasted__item-1-bg">
               <img class="lasted__item-1-bg--img" :src="pathImage + film[0]?.poster_url" alt="">
@@ -108,8 +108,8 @@
 </template>
 
 <script>
-import tabLeft from '../layout/tabLeft.vue'
-import tabRight from '../layout/tabRight.vue'
+import tabLeft from '../components/tabLeft.vue'
+import tabRight from '../components/tabRight.vue'
 import search from '../components/search.vue'
 export default {
   components: {
@@ -131,11 +131,15 @@ export default {
   },
   methods: {
     async fetchData() {
-      let res = await this.$axios.$get('https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=5')
+      let res = await this.$axios.$get('https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=6')
       this.film = res.items;
       console.log("aaaaaaaaaa", this.film)
-      if (!localStorage.getItem('viewRecent'))
-        localStorage.setItem('viewRecent', JSON.stringify(this.film[5]))
+      if (!localStorage.getItem('viewRecent')){
+        this.film[6].thumb_url = this.pathImage + this.film[10].thumb_url
+        this.film[6].poster_url = this.pathImage + this.film[10].poster_url
+        console.log(this.film[10])
+        localStorage.setItem('viewRecent', JSON.stringify(this.film[6]))
+      }
       this.viewRecent = JSON.parse(localStorage.getItem('viewRecent'))
     },
     go() {
@@ -249,6 +253,10 @@ export default {
   bottom: 40px;
   font-size: 1.1em;
   color: #fff;
+  width: 350px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-weight: 500;
   left: 35px;
 }
