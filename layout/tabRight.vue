@@ -1,6 +1,6 @@
 <template>
     <div class="tabRight">
-        <p class="tabRight__title">Film hot</p>
+        <p class="tabRight__title">Film hot <img class="film-hot-img" src="../assets/icon/fire.png" alt=""></p>
         <div class="list__hot-film">
             <div class="list__hot-film--item" v-for="index in filmHot" :title="film[index]?.name">
                 <div class="list__hot-film--item__bg">
@@ -48,6 +48,8 @@ export default {
 .list__hot-film--item{
     position: relative;
     margin-bottom: 20px;
+    /* box-shadow: -1px 2px 20px 0px rgba(173, 173, 173, 0.516); */
+    border-radius: 11px;
 }
 .list__hot-film--item__bg{
 }
@@ -67,13 +69,14 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgba(143, 143, 143, 0.783);
     padding: 2px;
     border-radius: 50%;
     height: 28px;
 }
 .list__hot-film--item__info--play-btn:hover{
     cursor: pointer;
-    background-color: rgb(143 143 143);
+    background-color: rgb(96, 96, 96);
     transition: 0.4s;
     
 }
@@ -122,5 +125,15 @@ p{
     height: 50px;
     border-radius: 11px;
 }
-.list__hot-film--item{}
+.tabRight__title{
+    margin-top: 45px;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+.film-hot-img{
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+}
 </style>

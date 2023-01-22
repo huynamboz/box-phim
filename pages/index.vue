@@ -11,7 +11,7 @@
           </div>
           <div class="header__search">
             <div class="bx-search"><img src="../assets/icon/regular/bx-search.svg" alt=""></div>
-            <input type="text" placeholder="Search series or movie...">
+            <search/>
           </div>
           <div class="header__option"></div>
         </div>
@@ -110,16 +110,18 @@
 <script>
 import tabLeft from '../layout/tabLeft.vue'
 import tabRight from '../layout/tabRight.vue'
+import search from '../components/search.vue'
 export default {
   components: {
     tabLeft,
-    tabRight
+    tabRight,
+    search
   },
   data() {
     return {
       film: [],
       viewRecent: {},
-      suggestFilm: [3, 4,5,6],
+      suggestFilm: [3, 4],
       pathImage: 'https://img.hiephanhthienha.com/uploads/movies/'
     }
   },
@@ -168,6 +170,8 @@ export default {
   background-color: #f0f4f7;
   padding: 10px 20px 10px 10px;
   border-radius: 15px;
+  align-items: center;
+  position: relative;
 }
 
 .header-main__title {
