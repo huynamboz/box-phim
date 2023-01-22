@@ -6,7 +6,7 @@
             <div class="search__item" v-for="item in searchResult" @click="$router.push(`/film/${item?.slug}`)">
                 <div class="search__item--thumb">
                     <img class="search__item--thumb--img"
-                        :src="pathImage + item?.poster_url"
+                        :src="pathImage + item?.thumb_url"
                         alt="">
                 </div>
                 <div class="search__item--name">
