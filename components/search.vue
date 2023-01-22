@@ -28,6 +28,11 @@ export default {
             searchResult: []
         }
     },
+    mounted(){
+        document.addEventListener('click', ()=>{
+            this.isSearching = false
+        })
+    },
     methods: {
         removeSearch(){
             this.keySearch = '';
@@ -72,6 +77,15 @@ export default {
     box-shadow: 1px 0px 20px 0px rgba(0, 0, 0, 0.21);
     animation: fade 0.3s;
     transition: 0.5s;
+}
+.search::-webkit-scrollbar {
+    width: 5px;
+}
+.search::-webkit-scrollbar-track {
+    background: transparent;
+}
+.search::-webkit-scrollbar-thumb {
+    background: #f96962;
 }
 
 @keyframes fade{

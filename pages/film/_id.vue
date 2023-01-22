@@ -5,7 +5,7 @@
             
         <div class="main__load-film">
             <div class="film__detail">
-                <div class="tag__film">Watch</div>
+                <div class="tag__film" @click="$router.push('/')">Home</div>
                 <p class="film__name">Enjoy film 
                 <img src="../../assets/icon/tv.png" alt="" class="film__tvTag--img">
                 </p>
@@ -17,8 +17,12 @@
             <div class="film__thumb">
                 <img class="film__poster--img" :src="currentFilm?.movie.poster_url" alt="">
                 <img :src="currentFilm?.movie.thumb_url" alt="" class="film__thumb--img">
+                <img src="../../assets/icon/hd.png" alt="" class="hd__icon">
                 <p class="film__thumb-name">{{ currentFilm?.movie.name }}
                 </p>
+                <div id="film__thumb-des">
+                    {{ currentFilm?.movie.content  }}
+                </div>
                 <p class="film_thumb-year">{{ currentFilm?.movie.year  }}</p>
                 </div>
             <div class="video__content">
@@ -35,8 +39,22 @@
         </div>
         </div>
 
-
+        <div class="right__content">
+            <div class="right__content-noti">
+                <p class="right__content-noti-title">Notification
+                <img src="../../assets/icon/speaker.jpg" alt="" class="right__content-noti-title--img">
+                </p>
+                <div class="right__content-noti-content">
+                    <p class="right__content-noti-content--text">
+                        Hello ! welcome to my mini project
+                        check my github for more information
+                        <a href="https://github.com/huynamboz/box-phim" class="right__content-noti-content--link">Github</a>
+                        have fun and thanks so much =>.<=
+                    </p>
+                </div>
+            </div>
         <tab-right :film="listFilm"  />
+        </div>
     </div>
     </div>
 </template>
@@ -76,6 +94,7 @@ export default {
             else this.currentChap = 0
         this.fetchData();
         this.getListFilm()
+        
     },
     methods: {
         getChap(){
@@ -131,7 +150,7 @@ export default {
                     this.$nextTick().then(() => {
                         document.querySelectorAll('.list__chap-item')[this.currentChap].classList.add('active')
                     })
-                    
+                    document.getElementById("film__thumb-des").innerHTML = this.currentFilm.movie.content
                     this.pushVideo()
 
                 }).catch(err => {
@@ -182,6 +201,7 @@ export default {
     display: flex;
     /* background-color: #0f1416; */
     border-radius: 15px;
+    justify-content: center;
     padding: 20px;
 }
 .film__detail{
@@ -193,6 +213,8 @@ export default {
     font-size:1.2em;
     margin-left: 10px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
 }
 .tag__film{
     background-color:#f96962;
@@ -202,6 +224,12 @@ export default {
     align-items: center;
     padding: 7px 20px;
     border-radius: 15px;
+}
+.tag__film:hover{
+    background-color: #e42a20;
+    color: #fff;
+    transition: .5s;
+    cursor: pointer;
 }
 video{
     margin-top: 10px;
@@ -276,18 +304,46 @@ video{
     font-size: 1.5em;
     font-weight: 500;
     width: 40%;
-
+    height: 25%;
+    overflow: hidden;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
 }
 .film_thumb-year{
     position: absolute;
     bottom: 30px;
     left: 25%;
     color: #fff;
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: 500;
     background-color: #f96962;
     border-radius: 16px;
     padding: 4px 20px;
+}
+#film__thumb-des{
+    position: absolute;
+    bottom: 50px;
+    height: 160px;
+    left: 25%;
+    color: #fff;
+    font-size: 0.9em;
+    font-weight: 300;
+    width: 40%;
+    line-height: 1.5em;
+    overflow-y  : auto;
+}
+#film__thumb-des::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+#film__thumb-des::-webkit-scrollbar {
+    width: 2px;
+}
+#film__thumb-des::-webkit-scrollbar-thumb {
+    background-color: #f96962;
+    border-radius: 10px;
+}
+#film__thumb-des p{
+    overflow-y  : auto;
 }
 .film__thumb-originname{
     position: absolute;
@@ -300,6 +356,7 @@ video{
 }
 .film__thumb--img{
     height: 80%;
+    width: 160px;
     object-fit: cover;
     border-radius: 10px;
     position: absolute;
@@ -311,5 +368,46 @@ video{
 .film__tvTag--img{
     width: 50px;
     height: 50px;
+    margin-bottom: 10px;margin-right: 0px;
+}
+.right__content-noti{
+    margin-top: 20px;
+    margin-left: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px 0px  rgba(150, 150, 150, 0.247);
+    box-sizing: border-box;
+    width: 260px;
+    padding: 15px;
+
+}
+.right__content-noti-title{
+    font-size: 1em;
+    font-weight: 500;
+    margin-bottom: 10px;
+    display: inline-block;
+    border-bottom: #f96962 2px solid;
+}
+.right__content-noti-content--text{
+    font-size: 0.9em;
+    font-weight: 300;
+    line-height: 1.5em;
+}
+.right__content-noti-title--img{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+a{
+    text-decoration:underline;
+    color:#e42a20;
+}
+.hd__icon{
+    position: absolute;
+    left: 36%;
+    width: 30px;
+    height: 30px;
+    bottom: 10%;
+    display: block;
 }
 </style>
