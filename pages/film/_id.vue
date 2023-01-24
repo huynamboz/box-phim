@@ -8,12 +8,14 @@
                 <div class="tag__film" @click="$router.push('/')">Home</div>
                 <p class="film__name">Enjoy film 
                 <img src="../../assets/icon/tv.png" alt="" class="film__tvTag--img">
-                </p>
+            <bookmark :listSaved="listSaved" class="bookmark-responsived"/>
+                    
+            </p>
                 <div class="header__search">
             <div class="bx-search"><img src="../../assets/icon/regular/bx-search.svg" alt=""></div>
             <search/>
           </div>
-            <bookmark :listSaved="listSaved"/>
+            <bookmark :listSaved="listSaved" class="bookmark-nonresponsive"/>
             </div>
             <div class="film__thumb">
                 <img class="film__poster--img" :src="currentFilm?.movie.poster_url" alt="">
@@ -218,7 +220,9 @@ export default {
     margin: 0;
     padding: 0;
 }
-
+.bookmark-responsived{
+    display: none;
+}
 .bg-black {
     margin: 0;
     padding: 0;
@@ -575,6 +579,22 @@ p{
     .right__content-noti{
         margin: 20px 0;
         width: 100%;
+    }
+    .list__chap{
+        width: 100%;
+    }
+    .main__load-film{
+        margin-right: 0;
+    }
+    .bookmark-responsived{
+        display: block;
+    }
+    .bookmark-nonresponsive{
+        display: none;
+    }
+    .bookmark__container{
+        position: absolute;
+        left: -100px;
     }
 }
 </style>

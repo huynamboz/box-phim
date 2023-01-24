@@ -205,4 +205,21 @@ p {
     font-size: 12px;
     margin-bottom: 5px;
 }
+@media (max-width: 576px){
+    .bookmark__container::after{
+        position: absolute;
+        content: '';
+        width: 0px;
+        height: 0px;
+        top: -18px;
+        left: 65%;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-bottom: 20px solid #ffffff;
+    }
+    .bookmark__container{
+        position: absolute;
+        left: -600%;
+    }
+}
 </style>
