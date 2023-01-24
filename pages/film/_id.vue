@@ -13,6 +13,7 @@
             <div class="bx-search"><img src="../../assets/icon/regular/bx-search.svg" alt=""></div>
             <search/>
           </div>
+            <bookmark :listSaved="listSaved"/>
             </div>
             <div class="film__thumb">
                 <img class="film__poster--img" :src="currentFilm?.movie.poster_url" alt="">
@@ -20,14 +21,37 @@
                 <img src="../../assets/icon/hd.png" alt="" class="hd__icon">
                 <p class="film__thumb-name">{{ currentFilm?.movie.name }}
                 </p>
-                <div id="film__thumb-des">
-                    {{ currentFilm?.movie.content  }}
-                </div>
+                
                 <p class="film_thumb-year">{{ currentFilm?.movie.year  }}</p>
                 </div>
             <div class="video__content">
                 <video id="video" controls></video>
             </div>
+            <div class="icon__action">
+                <div class="icon__action-item orange" @click="addFavourite()" v-if="checkFavourited()">
+                    <img src="../../assets/icon/save.png" alt="" class="icon__action-item--img">
+                    <p class="icon__action-item--title">Unsave</p>
+                </div>
+                <div class="icon__action-item orange" @click="addFavourite()" v-else>
+                    <img src="../../assets/icon/save.png" alt="" class="icon__action-item--img">
+                    <p class="icon__action-item--title">Save</p>
+                </div>
+
+                <div class="icon__action-item blue">
+                    <img src="../../assets/icon/detail.png" alt="" style="margin-right: 5px;" class="icon__action-item--img">
+                    <p class="icon__action-item--title">Report</p>
+                </div>
+
+
+            </div>
+            <div id="film__thumb-des">
+                <p class="film__thumb-des-title">Description
+                    <img class="film__thumb-des--icon" src="../../assets/icon/des.png" alt="">
+                </p>
+                <div id="film__thumb-des-title-content">
+
+                </div>
+                </div>
             <div class="area__chap">
                 <p class="area__chap-title">Episode #{{ Number(this.currentChap) +1 }}</p>
             <div class="list__chap" >
@@ -63,11 +87,13 @@ import Hls from 'hls.js'
 import tabRight from '../../components/tabRight.vue'
 import tabLeft from '../../components/tabLeft.vue'
 import search from '../../components/search.vue'
+import bookmark from '../../components/bookmark.vue'
 export default {
     components: {
         tabRight,
         tabLeft,
-        search
+        search,
+        bookmark
     },
     computed:{
         pageParam(){
@@ -83,7 +109,9 @@ export default {
         return {
             currentFilm: null,
             listFilm: [],
-            currentChap: 0
+            currentChap: 0,
+            countSaved:0,
+            listSaved: []
         }
     },
     mounted() {
@@ -97,11 +125,30 @@ export default {
         
     },
     methods: {
+        checkFavourited(){
+            return this.listSaved.find(item => item._id == this.currentFilm.movie._id)
+        },
+        addFavourite(){
+            this.listSaved = JSON.parse(localStorage.getItem('listSaved'))
+            if(this.listSaved.length > 0){
+                let check = this.listSaved.find(item => item._id == this.currentFilm.movie._id)
+                if(check){
+                    let index = this.listSaved.findIndex(item => item._id == this.currentFilm.movie._id)
+                    this.listSaved.splice(index, 1)
+                    localStorage.setItem('listSaved', JSON.stringify(this.listSaved))
+                }else{
+                    this.listSaved.unshift(this.currentFilm.movie)
+                    localStorage.setItem('listSaved', JSON.stringify(this.listSaved))
+                }
+            }else{
+                this.listSaved.push(this.currentFilm.movie)
+                localStorage.setItem('listSaved', JSON.stringify(this.listSaved))
+            }
+        },
         getChap(){
             if(this.pageParam)
             this.currentChap = Number(this.pageParam) - 1
             else this.currentChap = 0
-            console.log("chap", this.currentChap)
             this.pushVideo()
         },
         changeChap(value){
@@ -117,7 +164,6 @@ export default {
             await this.$axios.$get(`https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=6`)
                 .then(res => {
                     this.listFilm = res.items;
-                    console.log("hhhhhhhhhhhh", this.listFilm)
                 }).catch(err => {
                     console.log(err)
                 })
@@ -145,14 +191,18 @@ export default {
             await this.$axios.$get(`https://ophim1.com/phim/${this.$route.params.id}`)
                 .then(res => {
                     this.currentFilm = res;
-                    console.log("currentFilm", this.currentFilm)
                     localStorage.setItem('viewRecent', JSON.stringify(this.currentFilm.movie))
                     this.$nextTick().then(() => {
                         document.querySelectorAll('.list__chap-item')[this.currentChap].classList.add('active')
                     })
-                    document.getElementById("film__thumb-des").innerHTML = this.currentFilm.movie.content
+                    document.getElementById("film__thumb-des-title-content").innerHTML = this.currentFilm.movie.content
                     this.pushVideo()
-
+                    this.checkFavourited()
+                    this.listSaved = JSON.parse(localStorage.getItem('listSaved'))
+                    
+                    if(this.listSaved) this.checkFavourited();
+                    else this.listSaved = []
+                    console.log("mmmmmmmmmmm",this.listSaved)
                 }).catch(err => {
                     console.log(err)
                 })
@@ -162,10 +212,9 @@ export default {
 }
 </script>
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&display=swap');
 * {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -176,7 +225,8 @@ export default {
 }
 
 .container-view {
-    
+    background-color: #f3f9fe;
+  border-radius: 20px;
     /* background-color: #0b0b0b; */
     padding: 50px 50px 0 50px;
 }
@@ -223,7 +273,7 @@ export default {
     justify-content: center;
     align-items: center;
     padding: 7px 20px;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 .tag__film:hover{
     background-color: #e42a20;
@@ -243,6 +293,7 @@ video{
   margin-top: 6px;
   margin-left: 10px;
 }
+
 .header__search {
   display: flex;
   max-height: 40px;
@@ -298,16 +349,27 @@ video{
 }
 .film__thumb-name{
     position: absolute;
-    top: 30px;
+    bottom: 50px;
     left: 25%;
     color: #fff;
     font-size: 1.5em;
     font-weight: 500;
-    width: 40%;
+    width: 70%;
     height: 25%;
-    overflow: hidden;
+    overflow-y: auto;
     white-space: pre-wrap;
     text-overflow: ellipsis;
+}
+
+.film__thumb-name::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+.film__thumb-name::-webkit-scrollbar {
+    width: 2px;
+}
+.film__thumb-name::-webkit-scrollbar-thumb {
+    background-color: #f96962;
+    border-radius: 10px;
 }
 .film_thumb-year{
     position: absolute;
@@ -321,24 +383,86 @@ video{
     padding: 4px 20px;
 }
 #film__thumb-des{
-    position: absolute;
-    bottom: 50px;
     height: 160px;
-    left: 25%;
-    color: #fff;
-    font-size: 0.9em;
-    font-weight: 300;
-    width: 40%;
-    line-height: 1.5em;
-    overflow-y  : auto;
+    max-width: 780px;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px 0px  rgb(173 173 173 / 33%);
+    margin-top: 30px;
+    
 }
-#film__thumb-des::-webkit-scrollbar-track {
+#film__thumb-des-title-content{
+    text-overflow: ellipsis;
+    overflow-y: auto;
+    font-weight: 300;
+    white-space: pre-wrap;
+    font-size: 0.9em;
+    height: 130px;
+    margin-top: 10px;
+    line-height: 1.5em;
+}
+.icon__action-item--img{
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-right: 0px;
+}
+.film__thumb-des--icon{
+    width: 20px;
+    height: 20px;
+    display: block;
+    float: left;
+}
+.icon__action{
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+
+}
+.icon__action-item{
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.8em;
+    font-weight: 400;
+    padding: 8px 30px;
+    border-radius: 8px;
+
+}
+.orange{
+    box-shadow: 0px 9px 20px 0px #fc777059;
+    background-color: #f96962;
+}
+.blue{
+    box-shadow: 0px 10px 20px 0px #44444442;
+    background-color: #161616;
+}
+.orange:hover{
+    background-color: #e42a20;
+    color: #fff;
+    transition: .5s;
+    cursor: pointer;
+}
+.blue:hover{
+    color: #fff;
+    transition: .5s;
+    cursor: pointer;
+    background-color: #026bdb;
+}
+.film__thumb-des-title{
+    font-weight: 500;
+    display: inline-block;
+    border-bottom:solid 2px #f96962;
+}
+#film__thumb-des-title-content::-webkit-scrollbar-track {
     background-color: #f1f1f1;
 }
-#film__thumb-des::-webkit-scrollbar {
+#film__thumb-des-title-content::-webkit-scrollbar {
     width: 2px;
 }
-#film__thumb-des::-webkit-scrollbar-thumb {
+#film__thumb-des-title-content::-webkit-scrollbar-thumb {
     background-color: #f96962;
     border-radius: 10px;
 }
@@ -402,6 +526,10 @@ a{
     text-decoration:underline;
     color:#e42a20;
 }
+p{
+    margin: 0;
+
+}
 .hd__icon{
     position: absolute;
     left: 36%;
@@ -409,5 +537,44 @@ a{
     height: 30px;
     bottom: 10%;
     display: block;
+}
+
+@media (max-width: 576px) {
+    .main__content{
+        display: flex;
+        flex-direction: column;
+    }
+    .container-view{
+        padding: 0;
+        width: 100%;
+    }
+    video{
+        width: 100%;
+    }
+    .film__detail{
+        display: flex;
+        flex-direction: column;
+    }
+    .video__content{
+        display: flex;
+        width: 100%;
+    }
+    .bx-search{
+        width: 100%;
+    }
+    .header__search{
+        margin: 0;
+    }
+    .icon__action{
+        display: flex;
+        justify-content: space-around;
+    }
+    .icon__action-item{
+        margin: 0;
+    }
+    .right__content-noti{
+        margin: 20px 0;
+        width: 100%;
+    }
 }
 </style>

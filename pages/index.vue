@@ -13,6 +13,7 @@
             <div class="bx-search"><img src="../assets/icon/regular/bx-search.svg" alt=""></div>
             <search/>
           </div>
+          <bookmark :list-saved="listSaved" />
           <div class="header__option"></div>
         </div>
 
@@ -111,15 +112,18 @@
 import tabLeft from '../components/tabLeft.vue'
 import tabRight from '../components/tabRight.vue'
 import search from '../components/search.vue'
+import bookmark from '../components/bookmark.vue'
 export default {
   components: {
     tabLeft,
     tabRight,
-    search
+    search,
+    bookmark
   },
   data() {
     return {
       film: [],
+      listSaved:[],
       viewRecent: {},
       suggestFilm: [3, 4],
       pathImage: 'https://img.hiephanhthienha.com/uploads/movies/'
@@ -128,6 +132,9 @@ export default {
   mounted() {
     console.log(this.$route)
     this.fetchData();
+    this.listSaved = JSON.parse(localStorage.getItem('listSaved'))
+                    if(!this.listSaved) this.listSaved = []
+  
   },
   methods: {
     async fetchData() {
@@ -142,23 +149,24 @@ export default {
       }
       this.viewRecent = JSON.parse(localStorage.getItem('viewRecent'))
     },
-    go() {
     }
-  }
 }
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&display=swap');
 
 * {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 
-
+#app{
+  
+}
 .header {
   display: flex;
+  align-items: center;
 }
 
 .header__title {
@@ -181,7 +189,6 @@ export default {
 .header-main__title {
   font-size: 1.6em;
   font-weight: 600;
-  margin-top: 10px;
   margin-right: 50px;
 
 }

@@ -136,4 +136,13 @@ p{
     height: 20px;
     margin-left: 5px;
 }
+
+@media (max-width: 576px){
+    .tabRight{
+        margin: 0;
+    }
+    .list__hot-film--item__bg--img{
+        width: 100%;
+    }
+}
 </style>
