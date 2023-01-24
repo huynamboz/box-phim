@@ -12,7 +12,6 @@
                     
             </p>
                 <div class="header__search">
-            <div class="bx-search"><img src="../../assets/icon/regular/bx-search.svg" alt=""></div>
             <search/>
           </div>
             <bookmark :listSaved="listSaved" class="bookmark-nonresponsive"/>
@@ -203,7 +202,10 @@ export default {
                     this.listSaved = JSON.parse(localStorage.getItem('listSaved'))
                     
                     if(this.listSaved) this.checkFavourited();
-                    else this.listSaved = []
+                    else {
+                        this.listSaved = []
+                        localStorage.setItem('listSaved', JSON.stringify(this.listSaved))
+                    }
                     console.log("mmmmmmmmmmm",this.listSaved)
                 }).catch(err => {
                     console.log(err)
@@ -291,12 +293,7 @@ video{
     box-shadow: 0px 8px 20px 0px rgb(173 173 173 / 33%);
     object-fit: cover;
 }
-.bx-search {
-  width: 30px;
-  height: 30px;
-  margin-top: 6px;
-  margin-left: 10px;
-}
+
 
 .header__search {
   display: flex;
@@ -592,9 +589,6 @@ p{
     .bookmark-nonresponsive{
         display: none;
     }
-    .bookmark__container{
-        position: absolute;
-        left: -100px;
-    }
+    
 }
 </style>

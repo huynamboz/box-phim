@@ -1,5 +1,6 @@
 <template>
     <div class="container__search">
+        <div class="bx-search" @click="search"><img src="../assets/icon/regular/bx-search.svg" alt=""></div>
         <input type="text" v-model="keySearch" placeholder="Search series or movie..." @input="search">
         <img class="removeSearch" style="width:25px;height:25px;" src="../assets/icon/close.png" alt="" @click="removeSearch()">
         <div class="search" v-if="isSearching">
@@ -77,6 +78,12 @@ export default {
     box-shadow: 1px 0px 20px 0px rgba(0, 0, 0, 0.21);
     animation: fade 0.3s;
     transition: 0.5s;
+}
+.bx-search {
+  width: 30px;
+  height: 30px;
+  margin-top: 6px;
+  margin-left: 10px;
 }
 .search::-webkit-scrollbar {
     width: 5px;
