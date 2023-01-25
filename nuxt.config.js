@@ -2,17 +2,18 @@ import { publish } from "gh-pages";
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
+  
+  target: 'static',
+    ssr: true,
+    router:{
+      base: "/box-phim/"
+    },
   head: {
     title: 'nuxtSite',
     htmlAttrs: {
       lang: 'en'
     },
-    target: 'static',
-    router: {
-      baseURL: '/box-phim/',
-      // set public path for assets
-      publishPath: '/box-phim/'
-    },
+    
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
