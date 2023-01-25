@@ -6,7 +6,7 @@ export default {
   target: 'static',
     ssr: true,
     router:{
-      base: "/box-phim/"
+      base: "/box-phim/dist/"
     },
   head: {
     title: 'nuxtSite',
