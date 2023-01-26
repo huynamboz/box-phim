@@ -1,6 +1,6 @@
 <template>
     <div class="container-view">
-
+<loading v-if="loading"/>
         <div class="main__content">
             
         <div class="main__load-film">
@@ -89,12 +89,14 @@ import tabRight from '../../components/tabRight.vue'
 import tabLeft from '../../components/tabLeft.vue'
 import search from '../../components/search.vue'
 import bookmark from '../../components/bookmark.vue'
+import loading from '../../components/loading.vue'
 export default {
     components: {
         tabRight,
         tabLeft,
         search,
-        bookmark
+        bookmark,
+        loading
     },
     computed:{
         pageParam(){
@@ -112,7 +114,8 @@ export default {
             listFilm: [],
             currentChap: 0,
             countSaved:0,
-            listSaved: []
+            listSaved: [],
+            loading: true
         }
     },
     mounted() {
@@ -171,6 +174,7 @@ export default {
         },
         pushVideo(){
             var video = document.getElementById('video');
+            video.scrollIntoView({ behavior: 'smooth', block: 'center' });
             // document.querySelector(`.list__chap-item:nth-child(${this.currentChap})`).classList.add('active')
                     
                     if (Hls.isSupported()) {
@@ -191,6 +195,7 @@ export default {
             
             await this.$axios.$get(`https://ophim1.com/phim/${this.$route.params.id}`)
                 .then(res => {
+                    this.loading = false
                     this.currentFilm = res;
                     localStorage.setItem('viewRecent', JSON.stringify(this.currentFilm.movie))
                     this.$nextTick().then(() => {
@@ -541,6 +546,7 @@ p{
 }
 
 @media (max-width: 576px) {
+    
     .main__content{
         display: flex;
         flex-direction: column;

@@ -1,8 +1,8 @@
 <template>
 
   <div id="app">
-    <tab-left :film="film" />
-
+    <tab-left :film="film" class="tabLeft"/>
+    <loading v-if="loading"></loading>
     <div class="tab-container">
       <div class="tabMain">
         <div class="header">
@@ -10,10 +10,11 @@
             Discover your movies.
           </div>
           <div class="header__search">
-            <div class="bx-search"><img src="../assets/icon/regular/bx-search.svg" alt=""></div>
             <search/>
+            <bookmark :list-saved="listSaved" class="list__saved-mobile"/>
+
           </div>
-          <bookmark :list-saved="listSaved" />
+          <bookmark :list-saved="listSaved" class="list__saved-desktop"/>
           <div class="header__option"></div>
         </div>
 
@@ -53,6 +54,10 @@
               </div>
             </div>
           </div>
+
+
+
+
         </div>
         <div class="film__continue-watch--container">
           <div class="film__continue-watch">
@@ -113,15 +118,18 @@ import tabLeft from '../components/tabLeft.vue'
 import tabRight from '../components/tabRight.vue'
 import search from '../components/search.vue'
 import bookmark from '../components/bookmark.vue'
+import loading from '../components/loading.vue'
 export default {
   components: {
     tabLeft,
     tabRight,
     search,
-    bookmark
+    bookmark,
+    loading
   },
   data() {
     return {
+      loading: false,
       film: [],
       listSaved:[],
       viewRecent: {},
@@ -138,8 +146,10 @@ export default {
   },
   methods: {
     async fetchData() {
+      this.loading = true
       let res = await this.$axios.$get('https://ophim1.com/danh-sach/phim-moi-cap-nhat?page=6')
       this.film = res.items;
+      this.loading = false
       console.log("aaaaaaaaaa", this.film)
       if (!localStorage.getItem('viewRecent')){
         this.film[6].thumb_url = this.pathImage + this.film[10].thumb_url
@@ -220,7 +230,9 @@ export default {
   margin-top: 40px;
 }
 
-
+.list__saved-mobile{
+  display: none;
+}
 .film__lasted {
   display: flex;
   margin-top: 40px;
@@ -571,5 +583,69 @@ p {
 .tab-container{
   display: flex;
   justify-content: center;
+}
+@media (max-width: 576px){
+  .container-view{
+        padding :0 10px
+    }
+  .tabMain{
+    padding: 0;
+  }
+  .header__search{
+    margin-top: 20px;
+  }
+  .header{
+    display: flex;
+    flex-direction: column;
+  }
+  .film__lasted{
+    display: flex;
+    flex-direction: column;
+  }
+  .lasted__item-1-bg--img{
+    width: 100%;
+  }
+  .tab-container{
+    display: flex;
+    flex-direction: column;
+  }
+  .film__continue-watch--list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .film__lasted-item-2{
+    width: 100%;
+    margin: 20px 0 20px 0;
+  }
+  .film__continue-watch--item{
+    margin:0 0 20px 0;
+  }
+  .continue-watch-film-bg--img{
+    width: 100%;
+  }
+  .continue-watch-film-name{
+    width: 60%;
+  }
+  .film__continue-watch--container{
+    display: flex;
+    flex-direction: column;
+  }
+  .tabLeft{
+    display: none;
+  }
+  .lasted__item-2-bg--img{
+    width: 100%;
+  }
+  .lasted__item-2-name{
+    width: 60%;
+  }
+  .list__saved-desktop{
+    display: none;
+  }
+  .list__saved-mobile{
+    display: block;
+  }
 }
 </style>

@@ -157,4 +157,9 @@ input {
     background-color: transparent;
 
 }
+@media (max-width: 576px){
+    input{
+        padding: 0;
+    }
+}
 </style>
