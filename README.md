@@ -60,13 +60,7 @@ This directory contains your static files. Each file inside this directory is ma
 
 Example: `/static/robots.txt` is mapped as `/robots.txt`.
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
 ![alt text](https://github.com/huynamboz/box-phim/blob/master/assets/icon/mobile.png?raw=true)
 ![alt text](https://github.com/huynamboz/box-phim/blob/master/assets/icon/mobile2.png?raw=true)**
-![alt text](https://github.com/huynamboz/box-phim/blob/master/assets/icon/mobile0.png?raw=true)**
+![alt text](https://github.com/huynamboz/box-phim/blob/master/assets/icon/mobile3.png?raw=true)**
