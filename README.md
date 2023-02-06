@@ -62,3 +62,4 @@ Example: `/static/robots.txt` is mapped as `/robots.txt`. </br>
 ![alt text](https://github.com/huynamboz/box-phim/blob/master/assets/icon/mobile.png?raw=true)
 ![alt text](https://github.com/huynamboz/box-phim/blob/master/assets/icon/mobile2.png?raw=true)**
 ![alt text](https://github.com/huynamboz/box-phim/blob/master/assets/icon/mobile3.png?raw=true)**
+![alt text](https://github.com/huynamboz/box-phim/blob/master/assets/icon/mobile0.png?raw=true)**
