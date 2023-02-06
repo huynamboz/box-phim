@@ -1,7 +1,7 @@
 <template>
 
   <div id="app">
-    <tab-left :film="film" class="tabLeft"/>
+    <tab-left :film="film" />
     <loading v-if="loading"></loading>
     <div class="tab-container">
       <div class="tabMain">
@@ -585,11 +585,11 @@ p {
   justify-content: center;
 }
 @media (max-width: 576px){
-  .container-view{
+  .tab-container{
         padding :0 10px
     }
   .tabMain{
-    padding: 0;
+    padding: 0px;
   }
   .header__search{
     margin-top: 20px;

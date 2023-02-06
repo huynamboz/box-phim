@@ -43,4 +43,9 @@
     border-radius: 50%;
     margin: 20px 0;
 }
+@media (max-width: 576px){
+    .tabLeft{
+        display: none;
+    }
+}
 </style>
