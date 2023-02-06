@@ -68,3 +68,5 @@ This directory contains your Vuex store files. Creating a file in this directory
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
 ![alt text](https://github.com/huynamboz/box-phim/blob/master/assets/icon/mobile.png?raw=true)
+![alt text](https://github.com/huynamboz/box-phim/blob/master/assets/icon/mobile2.png?raw=true)**
+![alt text](https://github.com/huynamboz/box-phim/blob/master/assets/icon/mobile0.png?raw=true)**
