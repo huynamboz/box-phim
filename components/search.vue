@@ -22,10 +22,10 @@
 export default {
     data() {
         return {
-            urlSearch:'https://ophim1.cc/_next/data/x5eGH4wObN-EpnueF2sPG/tim-kiem.json?keyword=',
+            urlSearch:'https://ophim9.cc/_next/data/s4OlXy8jONoHVWAT5vg7b/tim-kiem.json?keyword=',
             keySearch: '',
             isSearching: false,
-            pathImage: 'https://img.hiephanhthienha.com/uploads/movies/',
+            pathImage: 'https://img.ophim12.cc/uploads/movies/',
             searchResult: []
         }
     },

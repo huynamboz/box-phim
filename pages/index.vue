@@ -134,7 +134,7 @@ export default {
       listSaved:[],
       viewRecent: {},
       suggestFilm: [3, 4],
-      pathImage: 'https://img.hiephanhthienha.com/uploads/movies/'
+      pathImage: 'https://img.ophim12.cc/uploads/movies/'
     }
   },
   mounted() {
