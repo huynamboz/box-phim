@@ -22,10 +22,10 @@
 export default {
     data() {
         return {
-            urlSearch:'https://ophim9.cc/_next/data/s4OlXy8jONoHVWAT5vg7b/tim-kiem.json?keyword=',
+            urlSearch:'https://ophim1.com/v1/api/tim-kiem?keyword=',
             keySearch: '',
             isSearching: false,
-            pathImage: 'https://img.ophim12.cc/uploads/movies/',
+            pathImage: 'https://img.ophim.live/uploads/movies/',
             searchResult: []
         }
     },
@@ -48,8 +48,8 @@ export default {
             if (this.keySearch.length > 0) {
                 this.$axios.$get(this.urlSearch + this.keySearch)
                     .then(res => {
-                        this.searchResult = res.pageProps.data.items 
-                        console.log(this.searchResult)
+                        this.searchResult = res.data.items
+                        this.pathImage = res.data.APP_DOMAIN_CDN_IMAGE + '/uploads/movies/'
                     })
             } else {
                 this.searchResult = []

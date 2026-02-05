@@ -31,7 +31,7 @@ export default {
         return {
             dataFilm: this.film,
             filmHot:[10,11,12,13,14],
-            pathImage:'https://img.ophim12.cc/uploads/movies/'
+            pathImage:'https://img.ophim.live/uploads/movies/'
         }
     },
     mounted() {
